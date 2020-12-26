@@ -58,9 +58,14 @@
                                             <a href="{{route('stok.edit',[$a->id])}}"  class="btn btn-success">
                                                 detail
                                             </a>
-                                            <a href="#"  class="btn btn-danger" onclick="return confirm('Yakin menghapus barang?')">
-                                                hapus
-                                            </a>
+                                            <form action="{{route('stok.destroy',[$a->id])}}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn btn-danger" onclick="return confirm('Yakin menghapus data ini?, histori barang keluar dan masuk yang bersangkutan akan ikut terhapus!')" type="submit">hapus</button>
+                                            </form>
+{{--                                            <a href="#"  class="btn btn-danger" onclick="return confirm('Yakin menghapus barang?')">--}}
+{{--                                                hapus--}}
+{{--                                            </a>--}}
                                         </td>
                                     </tr>
                             @endforeach

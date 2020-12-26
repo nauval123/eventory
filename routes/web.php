@@ -13,9 +13,11 @@
 
 
 Route::group(['middleware'=>'auth','web'],function(){
+    Route::post('barangkeluar/cari','OperatorController@create')->name('operator.create');
     Route::resource('operator','OperatorController');
     Route::resource('barangkeluar','BarangKeluarController');
     Route::resource('barangmasuk','BarangMasukController');
+
     Route::group(['middleware'=>['admin']],function (){
         Route::resource('admin','AdminController');
         Route::resource('stok','BarangController');

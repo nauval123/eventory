@@ -9,6 +9,7 @@ use App\Gudang;
 use App\HB;
 use App\HBK;
 use App\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,8 @@ class operatorController extends Controller
         $testing=User::find(\auth()->user()->id);
 //       dd($testing->barang()->where('user_id',\auth()->user()->id)->get());
         $id = auth()->user()->id;
+        $cari1='';
+        $cari2='';
         $barangkeluar=Barangkeluar::where('user_id',$id)->paginate(10);
         $namabarang=Barang::select('id','nama')->get();
         $barangmasuk=Barangmasuk::where('user_id',$id)->paginate(10);
@@ -31,17 +34,35 @@ class operatorController extends Controller
 //        dd($namabarang);
 //        dd($barangkeluar);
 //        return view('operator\homepage',['bkeluar'=>$barangkeluar,'bmasuk'=>$barangmasuk,'namabarang'=>$namabarang]);
-        return view('operator\homepage',['barangkeluar'=>$barangkeluar,'barangmasuk'=>$barangmasuk,'namabarang'=>$namabarang]);
+        return view('operator\homepage',['barangkeluar'=>$barangkeluar,'barangmasuk'=>$barangmasuk,'namabarang'=>$namabarang,'cari1'=>$cari1,'cari2'=>$cari2]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        try {
+            $minta=$request->cari;
+//            dd($request->all());
+            $cari1='';
+            $cari2=Barangkeluar::where('barang_id','like',"%".$minta."%")->orWhere('id','like','%'.$minta .'%')->paginate(5);
+            $id = auth()->user()->id;
+            $barangkeluar2=Barangkeluar::where('user_id',$id)->paginate(10);
+            $namabarang2=Barang::select('id','nama')->get();
+            $barangmasuk2=Barangmasuk::where('user_id',$id)->paginate(10);
+//        dd($barangmasuk);
+//        dd($namabarang);
+//        dd($barangkeluar);
+//        return view('operator\homepage',['bkeluar'=>$barangkeluar,'bmasuk'=>$barangmasuk,'namabarang'=>$namabarang]);
+            return view('operator\homepage',['barangkeluar'=>$barangkeluar2,'barangmasuk'=>$barangmasuk2,'namabarang'=>$namabarang2,'cari1'=>$cari1,'cari2'=>$cari2]);
+        }
+        catch (QueryException $e){
+            return redirect()->route('admin.index')->with('hasil','hasil pencarian tidak ditemukan');
+//            dd($e);
+        }
     }
 
     /**
@@ -52,7 +73,25 @@ class operatorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $minta=$request->cari;
+//            dd($request->all());
+            $cari2=Barangkeluar::where('barang_id','like',"%".$minta."%")->orWhere('id','like','%'.$minta .'%')->paginate(5);
+            $cari1=Barangmasuk::where('id','like',"%".$minta."%")->orWhere('barang_id','like','%'.$minta .'%')->orWhere('pemasok','like','%'.$minta .'%')->paginate(5);
+            $id = auth()->user()->id;
+            $barangkeluar2=Barangkeluar::where('user_id',$id)->paginate(10);
+            $namabarang2=Barang::select('id','nama')->get();
+            $barangmasuk2=Barangmasuk::where('user_id',$id)->paginate(10);
+//        dd($barangmasuk);
+//        dd($namabarang);
+//        dd($barangkeluar);
+//        return view('operator\homepage',['bkeluar'=>$barangkeluar,'bmasuk'=>$barangmasuk,'namabarang'=>$namabarang]);
+            return view('operator\homepage',['barangkeluar'=>$barangkeluar2,'barangmasuk'=>$barangmasuk2,'namabarang'=>$namabarang2,'cari1'=>$cari1,'cari2'=>$cari2])->with('hasil','hasil pencarian  '.$request->cari);
+        }
+        catch (QueryException $e){
+            return redirect()->route('admin.index')->with('hasil','hasil pencarian tidak ditemukan');
+//            dd($e);
+        }
     }
 
     /**

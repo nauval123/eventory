@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Barang;
+use App\Barangkeluar;
+use App\Barangmasuk;
 use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -130,7 +132,21 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $barang=Barang::find($id);
+            $barangkeluar=Barangkeluar::where('barang_id',$barang->id);
+            $barangmasuk=Barangmasuk::where('barang_id',$barang->id);
+
+            $barangmasuk->delete();
+            $barangkeluar->delete();
+            $barang->delete();
+
+            return redirect()->route('admin.index')->with('pesan','sukses terhapus');
+        }
+        catch (QueryException $e){
+            dd($e);
+//            return redirect()->route('admin.index')->with('pesan','gagal dihapus');
+        }
     }
 
 }

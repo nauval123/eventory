@@ -44,7 +44,6 @@ class BarangMasukController extends Controller
     public function store(Request $request)
     {
         try {
-//            dd($request->all());
             $request->validate([
                 'id' => 'required',
                 'pemasok'=>'required',
@@ -84,9 +83,7 @@ class BarangMasukController extends Controller
             return redirect()->route('barangmasuk.index')->with('pesan','barang berhasil ditambahkan');
         }catch (QueryException $e){
             dd($e);
-            return redirect()->route('barangmasuk.index')->with('pesan',$e);
-        }catch (Exception $e){
-            dd($e);
+            return redirect()->route('barangmasuk.index')->with('pesan','barang gagal ditambahkan');
         }
     }
 
@@ -171,7 +168,6 @@ class BarangMasukController extends Controller
      */
     public function destroy($id)
     {
-//        dd($id);
         try {
             $hapus=Barangmasuk::find($id);
 //            dd($hapus);
@@ -179,7 +175,6 @@ class BarangMasukController extends Controller
             $keluar=Barangkeluar::where('barang_id',$hapus->barang_id)->sum('jumlah');
 //                dd($keluar);
             $masuk=Barangmasuk::where('barang_id',$hapus->barang_id)->sum('jumlah');
-//                dd($masuk);
             $jumlahbarang=$masuk-$keluar;
             Barang::find($hapus->barang_id)->update([
                 'jumlah'=>$jumlahbarang,
@@ -187,7 +182,6 @@ class BarangMasukController extends Controller
             return redirect()->route('operator.index')->with('pesan','sukses terhapus');
         }
         catch (QueryException $e){
-            dd($e);
             return redirect()->route('operator.index')->with('pesan','gagal dihapus');
         }
     }

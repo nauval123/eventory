@@ -53,11 +53,9 @@ class BarangController extends Controller
                 'created_at'=>now(),]);
             return redirect()->route('admin.index')->with('pesan','sukses ditambahkan');
         }catch (Exception $e){
-//            dd($e);
             return redirect()->route('admin.index')->with('pesan','gagal ditambahkan');
         }
         catch (QueryException $e){
-//            dd($e);
             return redirect()->route('admin.index')->with('pesan','gagal ditambahkan');
         }
 
@@ -84,7 +82,6 @@ class BarangController extends Controller
     public function edit($id)
     {
         $detail=Barang::where('id',$id)->get();
-//        dd($detail);
         return view('admin/ubahstok',["stok"=>$detail]);
     }
 
@@ -111,15 +108,11 @@ class BarangController extends Controller
                 ]);
             return redirect()->route('admin.index')->with('pesan','sukses diubah');
         }catch (Exception $e){
-//            dd($e);
             return redirect()->route('admin.index')->with('pesan','gagal diubah');
         }
         catch (QueryException $e){
-//            dd($e);
             return redirect()->route('admin.index')->with('pesan','gagal diubah');
         }
-
-
     }
 
 
@@ -144,8 +137,7 @@ class BarangController extends Controller
             return redirect()->route('admin.index')->with('pesan','sukses terhapus');
         }
         catch (QueryException $e){
-            dd($e);
-//            return redirect()->route('admin.index')->with('pesan','gagal dihapus');
+            return redirect()->route('admin.index')->with('pesan','gagal dihapus');
         }
     }
 

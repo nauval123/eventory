@@ -120,16 +120,13 @@ class AkunController extends Controller
         try {
             $user=User::where('email',$request->email)->get('email');
 //            dd($user);
-            if ($user !=null){
-                $akun=User::find($id);
-                return redirect()->route('akun.edit',[$akun->id])->with('pesan','gagal terubah,email sudah digunakan');
-            }else{
+
                 User::find($id)->update([
                     'name'=>$request->nama,
                     'email'=>$request->email,
                 ]);
                 return redirect()->route('akun.index')->with('pesan','sukses terubah');
-            }
+
 
         }catch (QueryException $e){
             $akun=User::find($id);

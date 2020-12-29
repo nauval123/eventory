@@ -41,10 +41,8 @@ class BarangKeluarController extends Controller
     public function store(Request $request)
     {
         try {
-//            dd($request->all());
             $request->validate([
                 'id' => 'required',
-//                'pemasok'=>'required',
                 'jumlah' => 'required',
                 'harga' => 'required',
             ]);
@@ -64,19 +62,16 @@ class BarangKeluarController extends Controller
                 'created_at'=>now(),
             ]);
             $keluar=Barangkeluar::where('barang_id',$request->id)->sum('jumlah');
-//                dd($keluar);
             $masuk=Barangmasuk::where('barang_id',$request->id)->sum('jumlah');
-//                dd($masuk);
             $jumlahbarang=$masuk-$keluar;
             Barang::find($request->id)->update([
                 'jumlah'=>$jumlahbarang,
             ]);
             return redirect()->route('operator.index')->with('pesan','barang berhasil ditambahkan');
         }catch (QueryException $e){
-            dd($e);
-            return redirect()->route('barangmasuk.index')->withInput($e);
+            return redirect()->route('operator.index')->with('pesan','barang gagal ditambahkan');
         }catch (Exception $e){
-            dd($e);
+            return redirect()->route('operator.index')->with('pesan','barang gagal ditambahkan');
         }
     }
 
@@ -101,10 +96,8 @@ class BarangKeluarController extends Controller
     {
         $jenis=2;
         $data=Barangkeluar::where('id',$id)->firstOrFail();
-//        dd($data);
         $data2=Barang::select('id','nama')->where('id',$data->barang_id)->get();
         $data3=Barang::all();
-//        dd($data2);
         return view('operator/ubahdata',['jenis'=>$jenis,'barang'=>$data2,'barangtotal'=>$data3,'barangkeluar'=>$data]);
 
     }
@@ -121,7 +114,6 @@ class BarangKeluarController extends Controller
         try {
             $request->validate([
                 'id' => 'required',
-//                'pemasok'=>'required',
                 'jumlah' => 'required',
                 'harga' => 'required',
             ]);
@@ -129,25 +121,20 @@ class BarangKeluarController extends Controller
             Barangkeluar::find($id)->update([
                 'user_id'=>auth()->user()->id,
                 'barang_id'=>$id,
-//                'pemasok'=>$request->pemasok,
                 'hargajual'=>$request->harga/$request->jumlah,
                 'jumlah'=>$request->jumlah,
                 'updated_at'=>now(),
             ]);
             $keluar=Barangkeluar::where('barang_id',$request->id)->sum('jumlah');
-//                dd($keluar);
             $masuk=Barangmasuk::where('barang_id',$request->id)->sum('jumlah');
-//                dd($masuk);
             $jumlahbarang=$masuk-$keluar;
             Barang::find($request->id)->update([
                 'jumlah'=>$jumlahbarang,
             ]);
             return redirect()->route('operator.index')->with('pesan','data barang keluar berhasil diubah');
-        }catch (\Exception $e){
-//            dd($e);
+        }catch (Exception $e){
             return redirect()->route('operator.index')->with('pesan','data barang keluar gagal diubah');
         }catch (QueryException $e){
-//            dd($e);
             return redirect()->route('operator.index')->with('pesan','data barang keluar gagal diubah');
         }
     }
@@ -162,12 +149,9 @@ class BarangKeluarController extends Controller
     {
         try {
             $hapus=Barangkeluar::find($id);
-//            dd($hapus);
             $hapus->delete();
             $keluar=Barangkeluar::where('barang_id',$hapus->barang_id)->sum('jumlah');
-//                dd($keluar);
             $masuk=Barangmasuk::where('barang_id',$hapus->barang_id)->sum('jumlah');
-//                dd($masuk);
             $jumlahbarang=$masuk-$keluar;
             Barang::find($hapus->barang_id)->update([
                 'jumlah'=>$jumlahbarang,
@@ -175,7 +159,6 @@ class BarangKeluarController extends Controller
             return redirect()->route('operator.index')->with('pesan','sukses terhapus');
         }
         catch (QueryException $e){
-            dd($e);
             return redirect()->route('operator.index')->with('pesan','gagal dihapus');
         }
     }

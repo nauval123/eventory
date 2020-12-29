@@ -56,13 +56,11 @@ class operatorController extends Controller
 //        dd($barangmasuk);
 //        dd($namabarang);
 //        dd($barangkeluar);
-//        return view('operator\homepage',['bkeluar'=>$barangkeluar,'bmasuk'=>$barangmasuk,'namabarang'=>$namabarang]);
             return view('operator\homepage',['barangkeluar'=>$barangkeluar2,'barangmasuk'=>$barangmasuk2,'namabarang'=>$namabarang2,'cari1'=>$cari1,'cari2'=>$cari2]);
         }
         catch (QueryException $e){
             return redirect()->route('admin.index')->with('hasil','hasil pencarian tidak ditemukan');
-//            dd($e);
-        }
+     }
     }
 
     /**
@@ -75,7 +73,6 @@ class operatorController extends Controller
     {
         try {
             $minta=$request->cari;
-//            dd($request->all());
             $cari2=Barangkeluar::where('barang_id','like',"%".$minta."%")->orWhere('id','like','%'.$minta .'%')->paginate(5);
             $cari1=Barangmasuk::where('id','like',"%".$minta."%")->orWhere('barang_id','like','%'.$minta .'%')->orWhere('pemasok','like','%'.$minta .'%')->paginate(5);
             $id = auth()->user()->id;
@@ -85,7 +82,6 @@ class operatorController extends Controller
 //        dd($barangmasuk);
 //        dd($namabarang);
 //        dd($barangkeluar);
-//        return view('operator\homepage',['bkeluar'=>$barangkeluar,'bmasuk'=>$barangmasuk,'namabarang'=>$namabarang]);
             return view('operator\homepage',['barangkeluar'=>$barangkeluar2,'barangmasuk'=>$barangmasuk2,'namabarang'=>$namabarang2,'cari1'=>$cari1,'cari2'=>$cari2])->with('hasil','hasil pencarian  '.$request->cari);
         }
         catch (QueryException $e){

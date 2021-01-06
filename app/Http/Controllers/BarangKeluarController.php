@@ -19,7 +19,7 @@ class BarangKeluarController extends Controller
     {
         $jenis=2;
         $barang=Barang::all();
-        return view('operator/tambahdata',['jenis'=>$jenis,'barang'=>$barang]);
+        return view('operator.tambahdata',['jenis'=>$jenis,'barang'=>$barang]);
     }
 
     /**
@@ -98,7 +98,7 @@ class BarangKeluarController extends Controller
         $data=Barangkeluar::where('id',$id)->firstOrFail();
         $data2=Barang::select('id','nama')->where('id',$data->barang_id)->get();
         $data3=Barang::all();
-        return view('operator/ubahdata',['jenis'=>$jenis,'barang'=>$data2,'barangtotal'=>$data3,'barangkeluar'=>$data]);
+        return view('operator.ubahdata',['jenis'=>$jenis,'barang'=>$data2,'barangtotal'=>$data3,'barangkeluar'=>$data]);
 
     }
 

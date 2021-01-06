@@ -50,7 +50,15 @@
                                     </a>
                                 @endif
                             </div>
+                            <div class="col-md-8 offset-md-4 mt-3">
+                                <p>Admin : admin@gmail.com</p>
+                                <p>operator: operator@gmail.com</p>
+                                <p>password:12345678</p>
+                            </div>
                         </div>
+
+
+
                     </form>
                 </div>
             </div>

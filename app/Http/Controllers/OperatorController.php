@@ -22,19 +22,13 @@ class operatorController extends Controller
      */
     public function index()
     {
-        $testing=User::find(\auth()->user()->id);
-//       dd($testing->barang()->where('user_id',\auth()->user()->id)->get());
         $id = auth()->user()->id;
         $cari1='';
         $cari2='';
         $barangkeluar=Barangkeluar::where('user_id',$id)->paginate(10);
         $namabarang=Barang::select('id','nama')->get();
         $barangmasuk=Barangmasuk::where('user_id',$id)->paginate(10);
-//        dd($barangmasuk);
-//        dd($namabarang);
-//        dd($barangkeluar);
-//        return view('operator\homepage',['bkeluar'=>$barangkeluar,'bmasuk'=>$barangmasuk,'namabarang'=>$namabarang]);
-        return view('operator\homepage',['barangkeluar'=>$barangkeluar,'barangmasuk'=>$barangmasuk,'namabarang'=>$namabarang,'cari1'=>$cari1,'cari2'=>$cari2]);
+    return view('operator.homepage',['barangkeluar'=>$barangkeluar,'barangmasuk'=>$barangmasuk,'namabarang'=>$namabarang,'cari1'=>$cari1,'cari2'=>$cari2]);
     }
 
     /**
@@ -46,20 +40,17 @@ class operatorController extends Controller
     {
         try {
             $minta=$request->cari;
-//            dd($request->all());
             $cari1='';
             $cari2=Barangkeluar::where('barang_id','like',"%".$minta."%")->orWhere('id','like','%'.$minta .'%')->paginate(5);
             $id = auth()->user()->id;
             $barangkeluar2=Barangkeluar::where('user_id',$id)->paginate(10);
             $namabarang2=Barang::select('id','nama')->get();
             $barangmasuk2=Barangmasuk::where('user_id',$id)->paginate(10);
-//        dd($barangmasuk);
-//        dd($namabarang);
-//        dd($barangkeluar);
-            return view('operator\homepage',['barangkeluar'=>$barangkeluar2,'barangmasuk'=>$barangmasuk2,'namabarang'=>$namabarang2,'cari1'=>$cari1,'cari2'=>$cari2]);
+
+            return view('operator.homepage',['barangkeluar'=>$barangkeluar2,'barangmasuk'=>$barangmasuk2,'namabarang'=>$namabarang2,'cari1'=>$cari1,'cari2'=>$cari2]);
         }
         catch (QueryException $e){
-            return redirect()->route('admin.index')->with('hasil','hasil pencarian tidak ditemukan');
+            return redirect()->route('operator\homepage')->with('hasil','hasil pencarian tidak ditemukan');
      }
     }
 
@@ -79,14 +70,12 @@ class operatorController extends Controller
             $barangkeluar2=Barangkeluar::where('user_id',$id)->paginate(10);
             $namabarang2=Barang::select('id','nama')->get();
             $barangmasuk2=Barangmasuk::where('user_id',$id)->paginate(10);
-//        dd($barangmasuk);
-//        dd($namabarang);
-//        dd($barangkeluar);
-            return view('operator\homepage',['barangkeluar'=>$barangkeluar2,'barangmasuk'=>$barangmasuk2,'namabarang'=>$namabarang2,'cari1'=>$cari1,'cari2'=>$cari2])->with('hasil','hasil pencarian  '.$request->cari);
+
+            return view('operator.homepage',['barangkeluar'=>$barangkeluar2,'barangmasuk'=>$barangmasuk2,'namabarang'=>$namabarang2,'cari1'=>$cari1,'cari2'=>$cari2])->with('hasil','hasil pencarian  '.$request->cari);
         }
         catch (QueryException $e){
-            return redirect()->route('admin.index')->with('hasil','hasil pencarian tidak ditemukan');
-//            dd($e);
+            return redirect()->route('operator.index')->with('hasil','hasil pencarian tidak ditemukan');
+
         }
     }
 

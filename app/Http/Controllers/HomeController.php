@@ -16,10 +16,10 @@ class HomeController extends Controller
     public function index()
     {
         if(auth()->user()->admin==1){
-            return view('admin/homepage');
+            return view('admin\homepage');
         }
         elseif (auth()->user()->admin==0){
-            return view('operatorController/homepage');
+            return view('operatorController\homepage');
         }
     }
 }

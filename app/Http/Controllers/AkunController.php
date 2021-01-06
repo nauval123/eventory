@@ -19,23 +19,20 @@ class AkunController extends Controller
     {
         $dataakun=User::paginate(10);
         $cari=null;
-        return view('admin/akun',['dataakun'=>$dataakun,'cari'=>$cari]);
+        return view('admin.akun',['dataakun'=>$dataakun,'cari'=>$cari]);
     }
-//
+
     public function cari(Request $request){
 
         try {
             $minta=$request->cari;
-//            dd($request->all());
             $cari=User::where('name','like',"%".$minta."%")->orWhere('email','like','%'.$minta .'%')->paginate(5);
-//            dd($cari->all());
             $dataakun=User::paginate(10);
-            return view('admin/akun',['dataakun'=> $dataakun,'cari'=>$cari])->with('hasil','hasil pencarian  '.$request->cari);
+            return view('admin.akun',['dataakun'=> $dataakun,'cari'=>$cari])->with('hasil','hasil pencarian  '.$request->cari);
         }
         catch (QueryException $e){
             $dataakun=User::paginate(10);
             return redirect()->route('admin.index',['dataakun'=> $dataakun])->with('hasil','hasil pencarian tidak ditemukan');
-//            dd($e);
         }
         catch (\Exception $e){
             $dataakun=User::paginate(10);
@@ -49,7 +46,7 @@ class AkunController extends Controller
      */
     public function create()
     {
-        return view('admin/buatakun');
+        return view('admin.buatakun');
     }
 
     /**
@@ -93,7 +90,7 @@ class AkunController extends Controller
     public function show($id)
     {
         $akun=User::find($id);
-        return view('admin\ubahakun',['dataakun'=>$akun]);
+        return view('admin.ubahakun',['dataakun'=>$akun]);
     }
 
     /**
@@ -105,7 +102,7 @@ class AkunController extends Controller
     public function edit($id)
     {
         $akun=User::find($id);
-        return view('admin\ubahakun',['dataakun'=>$akun]);
+        return view('admin.ubahakun',['dataakun'=>$akun]);
     }
 
     /**

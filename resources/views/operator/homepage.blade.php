@@ -77,9 +77,6 @@
                                             @csrf
                                             <button class="btn btn-danger" onclick="return confirm('Yakin menghapus data ini?')" type="submit">hapus</button>
                                         </form>
-{{--                                        <a href="{{route('barangmasuk.destroy')}}"  class="btn btn-danger" onclick="return confirm('Yakin menghapus data ini?')">--}}
-{{--                                            hapus--}}
-{{--                                        </a>--}}
                                     </td>
                                 </tr>
 
@@ -130,9 +127,6 @@
                                                         @csrf
                                                         <button class="btn btn-danger" onclick="return confirm('Yakin menghapus data ini?')" type="submit">hapus</button>
                                                     </form>
-                                                    {{--                                        <a href="{{route('barangmasuk.destroy')}}"  class="btn btn-danger" onclick="return confirm('Yakin menghapus data ini?')">--}}
-                                                    {{--                                            hapus--}}
-                                                    {{--                                        </a>--}}
                                                 </td>
                                             </tr>
 

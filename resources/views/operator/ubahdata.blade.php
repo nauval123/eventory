@@ -26,7 +26,6 @@
                         <div class="card-header text-center">
                             <h2>Barang Masuk</h2>
                         </div>
-{{--                        {{dd($barang[0]->id)}}--}}
                         <div class="card-body">
                             <div class="form-group">
                                 <label >id barang</label>
@@ -39,10 +38,7 @@
                                     @endforeach
                                 </select>
                             </div>
-{{--                            <div class="form-group">--}}
-{{--                                <label>nama barang</label>--}}
-{{--                                <input name="nama" type="text" class="form-control" @if($barang) value="{{$barang[0]->nama}}" @endif required>--}}
-{{--                            </div>--}}
+
                             <div class="form-group">
                                 <label>pemasok</label>
                                 <input name="pemasok" type="text" class="form-control"  @if($barangmasuk) value="{{$barangmasuk->pemasok}}" @endif required>
@@ -104,14 +100,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            {{--                            <div class="form-group">--}}
-                            {{--                                <label>nama barang</label>--}}
-                            {{--                                <input name="nama" type="text" class="form-control" @if($barang) value="{{$barang[0]->nama}}" @endif required>--}}
-                            {{--                            </div>--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label>pemasok</label>--}}
-{{--                                <input name="pemasok" type="text" class="form-control"  @if($barangmasuk) value="{{$barangmasuk->pemasok}}" @endif required>--}}
-{{--                            </div>--}}
                             <div class="form-group">
                                 <label>jumlah</label>
                                 <input name="jumlah" type="number" min="1" class="form-control"  @if($barangkeluar) value="{{$barangkeluar->jumlah}}" @endif required>

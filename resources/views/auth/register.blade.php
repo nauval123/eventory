@@ -54,6 +54,14 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">status</label>
+
+                            <div class="col-md-6">
+                                <input  type="number" class="form-control" name="status" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">

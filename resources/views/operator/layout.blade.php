@@ -24,7 +24,6 @@
             <form class="form-inline mr-auto">
                 <ul class="navbar-nav mr-3">
                     <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-                    {{--                    <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>--}}
                 </ul>
             </form>
             <ul class="navbar-nav navbar-right">
@@ -34,10 +33,10 @@
         <div class="main-sidebar">
             <aside id="sidebar-wrapper">
                 <div class="sidebar-brand">
-                    <a href="index.html">E-Ventory</a>
+                    <a href="{{route('operator.index')}}">E-Ventory</a>
                 </div>
                 <div class="sidebar-brand sidebar-brand-sm">
-                    <a href="index.html">EV</a>
+                    <a href="{{route('operator.index')}}">EV</a>
                 </div>
                 <ul class="sidebar-menu">
                     <li class="menu-header">HomePage</li>
@@ -64,12 +63,6 @@
         <div class="main-content">
             <section class="section">
                 @yield('kontenoperator')
-                {{--                <div class="section-header">--}}
-                {{--                    <h1>Profil</h1>--}}
-                {{--                </div>--}}
-
-                {{--                <div class="section-body">--}}
-                {{--                </div>--}}
             </section>
         </div>
         <footer class="main-footer">

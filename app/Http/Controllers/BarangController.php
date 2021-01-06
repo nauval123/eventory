@@ -19,7 +19,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        return view('admin/tambahstok');
+        return view('admin.tambahstok');
     }
 
     /**
@@ -82,7 +82,7 @@ class BarangController extends Controller
     public function edit($id)
     {
         $detail=Barang::where('id',$id)->get();
-        return view('admin/ubahstok',["stok"=>$detail]);
+        return view('admin.ubahstok',["stok"=>$detail]);
     }
 
     /**

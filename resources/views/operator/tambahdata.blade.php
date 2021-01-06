@@ -1,6 +1,5 @@
 @extends('operator/layout')
 @section('kontenoperator')
-{{--    {{dd(session('pesan'))}}--}}
     @if($jenis==1)
         <section class="section">
         <div class="section-body">
@@ -48,10 +47,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-{{--                                <div class="form-group">--}}
-{{--                                    <label>nama barang</label>--}}
-{{--                                    <input name="nama" type="text" class="form-control" placeholder="masukkan nama barang" value="{{old('nama')}}" required>--}}
-{{--                                </div>--}}
                                 <div class="form-group">
                                     <label>pemasok</label>
                                     <input name="pemasok" type="text" class="form-control" placeholder="masukkan nama pemasok" value="{{old('pemasok')}}" required>
@@ -120,10 +115,6 @@
                                     @endforeach
                                 </select>
                             </div>
-{{--                            <div class="form-group">--}}
-{{--                               <label>nama barang</label>--}}
-{{--                               <input name="nama" type="text" class="form-control" placeholder="masukkan nama barang" value="{{old('nama')}}" required>--}}
-{{--                            </div>--}}
                             <div class="form-group">
                                 <label>jumlah</label>
                                 <input name="jumlah" type="number" min="1"  class="form-control" placeholder="masukkan jumlah" value="{{old('jumlah')}}" required>

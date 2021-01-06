@@ -20,60 +20,6 @@
                     </div>
                 </div>
             @endif
-{{--            @if($cari!=null)--}}
-{{--                <div class="section-body">--}}
-{{--                    <div class="card">--}}
-{{--                        <div class="card-header">--}}
-{{--                            <h4>Daftar Akun</h4>--}}
-{{--                            <form class="card-header-form">--}}
-{{--                                <div class="input-group">--}}
-{{--                                    <input type="text" name="search" class="form-control" placeholder="Search">--}}
-{{--                                    <div class="input-group-btn">--}}
-{{--                                        <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </form>--}}
-{{--                        </div>--}}
-{{--                        <div class="card-body p-0">--}}
-{{--                            <div class="table-responsive">--}}
-{{--                                <table class="table table-striped">--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Nama</th>--}}
-{{--                                        <th>Email</th>--}}
-{{--                                        <th>Status</th>--}}
-{{--                                        <th>CreatedAt</th>--}}
-{{--                                        <th>UpdatedAt</th>--}}
-{{--                                        <th>Action</th>--}}
-{{--                                    </tr>--}}
-{{--                                    @foreach($cari as $a)--}}
-{{--                                        <tr>--}}
-{{--                                            <td id="nama">{{$a->name}} </td>--}}
-{{--                                            <td id="email">{{$a->email}}</td>--}}
-{{--                                            @if($a->admin==0)--}}
-{{--                                                <td id="admin">operator</td>--}}
-{{--                                            @else--}}
-{{--                                                <td id="admin">admin</td>--}}
-{{--                                            @endif--}}
-{{--                                            <td id="created_at">{{$a->created_at}}</td>--}}
-{{--                                            <td id="updated_at">{{$a->updated_at}}</td>--}}
-{{--                                            <td>--}}
-{{--                                                <a href=""  class="btn btn-success">--}}
-{{--                                                    detail--}}
-{{--                                                </a>--}}
-{{--                                                <a href="{{route('hapusakun',[$a->id])}}"  class="btn btn-danger" onclick="return confirm('Yakin menghapus akun?')">--}}
-{{--                                                    hapus--}}
-{{--                                                </a>--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endforeach--}}
-{{--                                </table>--}}
-{{--                                {{$dataakun->links()}}--}}
-{{--                            </div>--}}
-
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            @endif--}}
             <div class="section-body">
                 <div class="card">
                         <div class="card-header">
@@ -119,9 +65,11 @@
                                                 <a href="{{route('akun.edit',[$a->id])}}"  class="btn btn-success">
                                                    detail
                                                 </a>
+                                                @if($a->admin==0)
                                                 <a href="{{route('hapusakun',[$a->id])}}"  class="btn btn-danger" onclick="return confirm('Yakin menghapus akun?')">
                                                    hapus
                                                 </a>
+                                                @endif
                                             </td>
                                         </tr>
                                 @endforeach

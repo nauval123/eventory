@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function index()
     {   $cari='';
         $stok=Barang::paginate(10);
-        return view('admin/homepage',['stok'=>$stok,'cari'=>$cari]);
+        return view('admin.homepage',['stok'=>$stok,'cari'=>$cari]);
     }
 
     /**
@@ -42,7 +42,7 @@ class AdminController extends Controller
 //            dd($request->all());
             $cari=Barang::where('nama','like',"%".$minta."%")->orWhere('id','like','%'.$minta .'%')->paginate(5);
             $stok=Barang::paginate(10);
-            return view('admin/homepage',['stok'=>$stok,'cari'=>$cari,'hasil'=>$request->cari])->with('hasil','hasil pencarian  '.$request->cari);
+            return view('admin.homepage',['stok'=>$stok,'cari'=>$cari,'hasil'=>$request->cari])->with('hasil','hasil pencarian  '.$request->cari);
         }
         catch (QueryException $e){
             return redirect()->route('admin.index')->with('hasil','hasil pencarian tidak ditemukan');

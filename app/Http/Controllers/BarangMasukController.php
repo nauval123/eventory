@@ -21,8 +21,7 @@ class BarangMasukController extends Controller
     {
         $jenis=1;
         $barang=Barang::all();
-//        dd($barang);
-        return view('operator/tambahdata',['jenis'=>$jenis,'barang'=>$barang]);
+        return view('operator.tambahdata',['jenis'=>$jenis,'barang'=>$barang]);
     }
 
     /**
@@ -63,15 +62,12 @@ class BarangMasukController extends Controller
             $keluar=Barangkeluar::where('barang_id',$request->id)->sum('jumlah');
             $masuk=Barangmasuk::where('barang_id',$request->id)->sum('jumlah');
             $jumlahbarang=$masuk-$keluar;
-//            dd($jumlahbarang);
           $this->masukin($barange,$jumlahbarang);
                 return redirect()->route('operator.index')->with('pesan','barang berhasil ditambahkan');
 
         }catch (QueryException $e){
-            dd($e);
-            return redirect()->route('barangmasuk.index')->withInput($e);
-        }catch (Exception $e){
-            dd($e);
+
+            return redirect()->route('barangmasuk.index')->withInput('pesan','barang berhasil ditambahkan');
         }
     }
 
@@ -82,7 +78,6 @@ class BarangMasukController extends Controller
             ]);
             return redirect()->route('barangmasuk.index')->with('pesan','barang berhasil ditambahkan');
         }catch (QueryException $e){
-            dd($e);
             return redirect()->route('barangmasuk.index')->with('pesan','barang gagal ditambahkan');
         }
     }
@@ -108,11 +103,9 @@ class BarangMasukController extends Controller
     {
         $jenis=1;
         $data=Barangmasuk::where('id',$id)->firstOrFail();
-//        dd($data);
         $data2=Barang::select('id','nama')->where('id',$data->barang_id)->get();
         $data3=Barang::all();
-//        dd($data2);
-        return view('operator/ubahdata',['jenis'=>$jenis,'barang'=>$data2,'barangtotal'=>$data3,'barangmasuk'=>$data]);
+        return view('operator.ubahdata',['jenis'=>$jenis,'barang'=>$data2,'barangtotal'=>$data3,'barangmasuk'=>$data]);
     }
 
     /**
@@ -124,7 +117,6 @@ class BarangMasukController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        dd($request);
         try {
             $request->validate([
                 'id' => 'required',
@@ -142,19 +134,15 @@ class BarangMasukController extends Controller
                 'updated_at'=>now(),
             ]);
             $keluar=Barangkeluar::where('barang_id',$request->id)->sum('jumlah');
-//                dd($keluar);
             $masuk=Barangmasuk::where('barang_id',$request->id)->sum('jumlah');
-//                dd($masuk);
             $jumlahbarang=$masuk-$keluar;
             Barang::find($request->id)->update([
                 'jumlah'=>$jumlahbarang,
             ]);
             return redirect()->route('operator.index')->with('pesan','data barang masuk berhasil diubah');
         }catch (\Exception $e){
-//            dd($e);
             return redirect()->route('operator.index')->with('pesan','data barang masuk gagal diubah');
         }catch (QueryException $e){
-//            dd($e);
             return redirect()->route('operator.index')->with('pesan','data barang masuk gagal diubah');
         }
 
@@ -170,10 +158,8 @@ class BarangMasukController extends Controller
     {
         try {
             $hapus=Barangmasuk::find($id);
-//            dd($hapus);
             $hapus->delete();
             $keluar=Barangkeluar::where('barang_id',$hapus->barang_id)->sum('jumlah');
-//                dd($keluar);
             $masuk=Barangmasuk::where('barang_id',$hapus->barang_id)->sum('jumlah');
             $jumlahbarang=$masuk-$keluar;
             Barang::find($hapus->barang_id)->update([
